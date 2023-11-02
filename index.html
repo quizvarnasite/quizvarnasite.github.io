@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.correct-answer:checked + label {
+  color: green;
+  background: green;
+}
+</style>
+</head>
+<body>
+
+<h2>Успех хора!</h2>
+
+<button onclick="randomizeQuestions()">Randomize Questions</button>
+
+<div id="quiz"></div>
+
+<script>
+var questions = [
+  {text: "+1.Едни от най-трудните за овладяване инфекции са тези, причинени от грам- отрицателни чревни бактерии, които продуцират Extended-Spectrum Beta- Lactamases (ESBLs). Коя от групите бета-лактамни антибиотици е структурно различна в достатъчна степен от останалите бета-лактами, така че да може да се ползва за лечение на тези инфекции?", answers: ["карбапенеми", "широко-спектърни пеницилини", "четвърта генерация цефалоспоринио—( ентерококите са R на цефалоспорини)", "тясно-спектърни пеницилини"], correct: 0},
+{text: "+2.Пеницилините инхибират ", answers: ["30S рибозомната субединица ", "Синтеза на клетъчна стена", "Синтеза на фолат (на нуклеинови киселини)", "РНК полимеразата"], correct: 1},
+{text: "+3.Рибозомите са мишени за:", answers: ["аминогликозидни антибиотици", "хинолони", "пеницилини", "сулфонамиди"], correct: 0},
+{text: "4.Макролидите инхибират", answers: ["30S рибозомната субединица", "50S рибозомната субединица", "ДНК гиразата", "Синтеза на фолат"], correct: 1},
+{text: "5.Антисептиците:", answers: ["са средство за стерилизация", "се отличават с висока токсичност и имат ограничено приложение", "се отличават с ниска токсичност и могат да се прилагат локално върху кожа и лигавици", "се използват само като консерванти във фармацевтичната практика"], correct: 2},
+{text: "6.Посочете НЕВЯРНОТО твърдение. Повърхностно активните вещества:", answers: ["имат мокрещо, емулгиращо и миещо действия", "действат върху участъци на микробната цитоплазмената мембрана", "се наричат още детергенти", "се използват единствено съвместно с методите за стерилизация"], correct: 3},
+{text: "", answers: ["+7.Кой оцветителен метод се използва за доказване на цитоплазмени включвания?", "Грам", "Клет", "Найсер", "Цил – Нилсен"], correct: 3},
+{text: "+8.Коагулазите са фактор на патогенност, защото:", answers: ["разграждат хиалуроновата киселина в съединителната тъкан", "хидролизират ДНК на клетките", "разтварят кръвния съсирек", "съсирват кръвната плазма, образуват венозни тромби"], correct: 3},
+{text: "+9.Бактериофагите се използват за:", answers: ["диагностика и фаготипиране", "лечение", "унищожаване на паразити", "няма верен отговор"], correct: 0},
+{text: "+10. За PCR e вярно:", answers: ["денатурацията включва загряване на реакционната смес до 90-98ᵒС", "анелирането включва прикрепване на праймерите при 40-60ºС", "удължаване на праймерите при 72ᵒС", "всички посочени отговори"], correct: 3},
+
+  // More questions...
+];
+
+window.onload = function() {
+  var quiz = document.getElementById("quiz");
+  questions.forEach(function(question, i) {
+    var div = document.createElement("div");
+    div.innerHTML = "<h3>" + question.text + "</h3>";
+    question.answers.forEach(function(answer, j) {
+      var id = "q" + i + "a" + j;
+      var radio = document.createElement("input");
+      radio.type = "radio";
+      radio.id = id;
+      radio.name = "q" + i;
+      if (j === question.correct) {
+        radio.classList.add("correct-answer");
+        radio.addEventListener("change", function() {
+          if (this.checked) {
+            this.nextElementSibling.style.color = "white";
+          }
+        });
+      }
+      var label = document.createElement("label");
+      label.htmlFor = id;
+      label.textContent = answer;
+      div.appendChild(radio);
+      div.appendChild(label);
+      div.appendChild(document.createElement("br"));
+    });
+    quiz.appendChild(div);
+  });
+};
+
+function randomizeQuestions() {
+  var quiz = document.getElementById("quiz");
+  for (var i = quiz.children.length; i >= 0; i--) {
+    quiz.appendChild(quiz.children[Math.random() * i | 0]);
+  }
+}
+</script>
+
+</body>
+</html>
